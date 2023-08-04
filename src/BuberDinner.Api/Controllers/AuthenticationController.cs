@@ -26,10 +26,10 @@ public class AuthenticationController : ControllerBase
             request.Password
         );
         var response = new AuthenticationResponse(
-            authenticationResult.Id,
-            authenticationResult.FirstName,
-            authenticationResult.LastName,
-            authenticationResult.Email,
+            authenticationResult.User.Id,
+            authenticationResult.User.FirstName,
+            authenticationResult.User.LastName,
+            authenticationResult.User.Email,
             authenticationResult.Token
         );
 
@@ -42,10 +42,10 @@ public class AuthenticationController : ControllerBase
     {
         var authenticationResult = _authenticationService.Login(request.Email, request.Password);
         var response = new AuthenticationResponse(
-            authenticationResult.Id,
-            authenticationResult.FirstName,
-            authenticationResult.LastName,
-            authenticationResult.Email,
+            authenticationResult.User.Id,
+            authenticationResult.User.FirstName,
+            authenticationResult.User.LastName,
+            authenticationResult.User.Email,
             authenticationResult.Token
         );
 
