@@ -1,5 +1,7 @@
 using BuberDinner.Application.Common.Interfaces.Persistence;
+using BuberDinner.Domain.Common.Errors;
 using BuberDinner.Domain.Entities;
+using ErrorOr;
 
 namespace BuberDinner.Application.Authentication;
 
@@ -17,7 +19,7 @@ public class AuthenticationService : IAuthenticationService
         _userRepository = userRepository;
     }
 
-    public AuthenticationResult Login(string email, string password)
+    public ErrorOr<AuthenticationResult> Login(string email, string password)
     {
         // 1. Validate the user exists
         if (_userRepository.GetUserByEmail(email) is not User user)
@@ -37,7 +39,7 @@ public class AuthenticationService : IAuthenticationService
         return new AuthenticationResult(user, token);
     }
 
-    public AuthenticationResult Register(
+    public ErrorOr<AuthenticationResult> Register(
         string firstName,
         string lastName,
         string email,
@@ -47,7 +49,7 @@ public class AuthenticationService : IAuthenticationService
         // 1. Validate the user doesn't exist
         if (_userRepository.GetUserByEmail(email) is not null)
         {
-            throw new Exception("User with the given email already exists.");
+            return Errors.User.DuplicateEmail;
         }
 
         // 2. Create user (generate unique ID) and persist it to the DB

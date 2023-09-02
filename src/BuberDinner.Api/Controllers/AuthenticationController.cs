@@ -1,5 +1,6 @@
 using BuberDinner.Application.Authentication;
 using BuberDinner.Contracts.Authentication;
+using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BuberDinner.Api;
@@ -19,36 +20,44 @@ public class AuthenticationController : ControllerBase
     [HttpPost]
     public IActionResult Register(RegisterRequest request)
     {
-        var authenticationResult = _authenticationService.Register(
+        ErrorOr<AuthenticationResult> authenticationResult = _authenticationService.Register(
             request.FirstName,
             request.LastName,
             request.Email,
             request.Password
         );
-        var response = new AuthenticationResponse(
+
+        return authenticationResult.Match(
+            authenticationResult => Ok(MapAuthenticationResponse(authenticationResult)),
+            _ => Problem(statusCode: StatusCodes.Status409Conflict, title: "User already exists")
+        );
+    }
+
+    private AuthenticationResponse MapAuthenticationResponse(
+        AuthenticationResult authenticationResult
+    )
+    {
+        return new AuthenticationResponse(
             authenticationResult.User.Id,
             authenticationResult.User.FirstName,
             authenticationResult.User.LastName,
             authenticationResult.User.Email,
             authenticationResult.Token
         );
-
-        return Ok(response);
     }
 
     [Route("login")]
     [HttpPost]
     public IActionResult Login(LoginRequest request)
     {
-        var authenticationResult = _authenticationService.Login(request.Email, request.Password);
-        var response = new AuthenticationResponse(
-            authenticationResult.User.Id,
-            authenticationResult.User.FirstName,
-            authenticationResult.User.LastName,
-            authenticationResult.User.Email,
-            authenticationResult.Token
+        ErrorOr<AuthenticationResult> authenticationResult = _authenticationService.Login(
+            request.Email,
+            request.Password
         );
 
-        return Ok(response);
+        return authenticationResult.Match(
+            authenticationResult => Ok(MapAuthenticationResponse(authenticationResult)),
+            _ => Problem(statusCode: StatusCodes.Status400BadRequest)
+        );
     }
 }
