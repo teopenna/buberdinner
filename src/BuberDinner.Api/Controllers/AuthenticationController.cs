@@ -29,7 +29,11 @@ public class AuthenticationController : ControllerBase
 
         return authenticationResult.Match(
             authenticationResult => Ok(MapAuthenticationResponse(authenticationResult)),
-            _ => Problem(statusCode: StatusCodes.Status409Conflict, title: "User already exists")
+            firstError =>
+                Problem(
+                    statusCode: StatusCodes.Status409Conflict,
+                    title: firstError.First().Description
+                )
         );
     }
 
@@ -57,7 +61,11 @@ public class AuthenticationController : ControllerBase
 
         return authenticationResult.Match(
             authenticationResult => Ok(MapAuthenticationResponse(authenticationResult)),
-            _ => Problem(statusCode: StatusCodes.Status400BadRequest)
+            firstError =>
+                Problem(
+                    statusCode: StatusCodes.Status409Conflict,
+                    title: firstError.First().Description
+                )
         );
     }
 }
