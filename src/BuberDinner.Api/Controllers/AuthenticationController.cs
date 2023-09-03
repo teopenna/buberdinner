@@ -5,9 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BuberDinner.Api;
 
-[ApiController]
 [Route("auth")]
-public class AuthenticationController : ControllerBase
+public class AuthenticationController : ApiController
 {
     private readonly IAuthenticationService _authenticationService;
 
@@ -28,25 +27,8 @@ public class AuthenticationController : ControllerBase
         );
 
         return authenticationResult.Match(
-            authenticationResult => Ok(MapAuthenticationResponse(authenticationResult)),
-            firstError =>
-                Problem(
-                    statusCode: StatusCodes.Status409Conflict,
-                    title: firstError.First().Description
-                )
-        );
-    }
-
-    private AuthenticationResponse MapAuthenticationResponse(
-        AuthenticationResult authenticationResult
-    )
-    {
-        return new AuthenticationResponse(
-            authenticationResult.User.Id,
-            authenticationResult.User.FirstName,
-            authenticationResult.User.LastName,
-            authenticationResult.User.Email,
-            authenticationResult.Token
+            authenticationResult => Ok(MapAuthenticationResult(authenticationResult)),
+            errors => Problem(errors)
         );
     }
 
@@ -60,12 +42,21 @@ public class AuthenticationController : ControllerBase
         );
 
         return authenticationResult.Match(
-            authenticationResult => Ok(MapAuthenticationResponse(authenticationResult)),
-            firstError =>
-                Problem(
-                    statusCode: StatusCodes.Status409Conflict,
-                    title: firstError.First().Description
-                )
+            authenticationResult => Ok(MapAuthenticationResult(authenticationResult)),
+            errors => Problem(errors)
+        );
+    }
+
+    private AuthenticationResponse MapAuthenticationResult(
+        AuthenticationResult authenticationResult
+    )
+    {
+        return new AuthenticationResponse(
+            authenticationResult.User.Id,
+            authenticationResult.User.FirstName,
+            authenticationResult.User.LastName,
+            authenticationResult.User.Email,
+            authenticationResult.Token
         );
     }
 }
