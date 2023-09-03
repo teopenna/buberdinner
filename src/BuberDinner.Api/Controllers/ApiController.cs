@@ -8,6 +8,8 @@ public class ApiController : ControllerBase
 {
     protected IActionResult Problem(IList<Error> errors)
     {
+        HttpContext.Items["errors"] = errors;
+
         var firstError = errors.First();
 
         var statusCode = firstError.Type switch
