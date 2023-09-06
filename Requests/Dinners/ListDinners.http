@@ -1,4 +1,4 @@
 < {% request.variables.set("host", "https://localhost:7081") %}
 
 GET {{host}}/dinners
-Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3N2E2MzgyZC1iNWM0LTRjZGMtOTYzZS1kNzcwNzE0MTE3ZDMiLCJnaXZlbl9uYW1lIjoiSm9obiIsImZhbWlseV9uYW1lIjoiRG9lIiwianRpIjoiYWMyYzg0OTgtODM1Mi00ZDA5LWFlYzItNTJjOTM1NzU2MzQ5IiwiZXhwIjoxNjk0MDM2Mjc3LCJpc3MiOiJCdWJlckRpbm5lciIsImF1ZCI6IkJ1YmVyRGlubmVyIn0.NxBGyiluur4WiIJk4-bsUX2kzyZmMWVVhvmZkK0j_Pk
