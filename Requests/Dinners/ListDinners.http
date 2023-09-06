@@ -1,0 +1,4 @@
+< {% request.variables.set("host", "https://localhost:7081") %}
+
+GET {{host}}/dinners
+Content-Type: application/json
