@@ -9,7 +9,6 @@ public static partial class Errors
         public static Error DuplicateEmail =>
             Error.Conflict(
                 code: "User.DuplicateEmail",
-                description: "User with the given email already exists."
-            );
+                description: "User with the given email already exists.");
     }
 }

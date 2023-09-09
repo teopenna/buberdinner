@@ -43,7 +43,8 @@ public sealed class Menu : AggregateRoot<MenuId>
         string description,
         HostId hostId)
     {
-        return new(MenuId.CreateUnique(),
+        return new(
+            MenuId.CreateUnique(),
             name,
             description,
             hostId,
