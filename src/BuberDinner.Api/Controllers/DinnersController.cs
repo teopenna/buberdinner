@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace BuberDinner.Api;
+namespace BuberDinner.Api.Controllers;
 
 [Route("[controller]")]
 public class DinnersController : ApiController

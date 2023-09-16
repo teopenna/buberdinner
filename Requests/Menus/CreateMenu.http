@@ -1,0 +1,22 @@
+POST https://localhost:7081/hosts/abc/menus
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5ZDJkOWNjZi0yYjVjLTRkYmQtYTEwMi0wMDVlZTllYzhjMjEiLCJnaXZlbl9uYW1lIjoiSm9obiIsImZhbWlseV9uYW1lIjoiRG9lIiwianRpIjoiOGQ4MWYyZDgtOTdlMS00Zjg1LThkMWMtZTgzMzlhOWFiYTg5IiwiZXhwIjoxNjk0NTAzMzczLCJpc3MiOiJCdWJlckRpbm5lciIsImF1ZCI6IkJ1YmVyRGlubmVyIn0.7r2AQqaPN7LOOrGKDNrytKkLhEd7Edc71m3J-5SPKmg
+
+{
+  "name": "Yummy Menu",
+  "description": "A menu with yummy food",
+  "sections": [
+    {
+      "name": "Appetizers",
+      "description": "Starters",
+      "items": [
+        {
+          "name": "Fried Pickles",
+          "description": "Delicious fried pickles"
+        }
+      ]
+    }
+  ]
+}
+
+###
