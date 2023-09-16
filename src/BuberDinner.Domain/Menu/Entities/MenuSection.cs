@@ -12,14 +12,15 @@ public sealed class MenuSection : Entity<MenuSectionId>
 
     public IReadOnlyList<MenuItem> Items => _menuItems.AsReadOnly();
     
-    private MenuSection(MenuSectionId id, string name, string description) : base(id)
+    private MenuSection(MenuSectionId id, string name, string description, List<MenuItem>? menuItems) : base(id)
     {
         Name = name;
         Description = description;
+        _menuItems = menuItems ?? new List<MenuItem>();
     }
 
-    public static MenuSection Create(string name, string description)
+    public static MenuSection Create(string name, string description, List<MenuItem>? menuItems)
     {
-        return new(MenuSectionId.CreateUnique(), name, description);
+        return new(MenuSectionId.CreateUnique(), name, description, menuItems);
     }
 }
