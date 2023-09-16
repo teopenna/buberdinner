@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace BuberDinner.Api;
+namespace BuberDinner.Api.Controllers;
 
 [ApiController]
 [Authorize]

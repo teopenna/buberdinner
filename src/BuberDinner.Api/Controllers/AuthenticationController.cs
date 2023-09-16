@@ -8,7 +8,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BuberDinner.Api;
+namespace BuberDinner.Api.Controllers;
 
 [Route("auth")]
 [AllowAnonymous]
