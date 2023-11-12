@@ -13,7 +13,7 @@ public sealed class AverageRating : ValueObject
         NumRatings = numRatings;
     }
 
-    public static AverageRating Create(double value, int numRatings)
+    public static AverageRating Create(double value = 0, int numRatings = 0)
     {
         return new(value, numRatings);
     }
@@ -26,7 +26,7 @@ public sealed class AverageRating : ValueObject
     public void RemoveNewRating(Rating rating)
     {
         Value = ((Value * NumRatings) - rating.Value) / --NumRatings;
-    } 
+    }
     
     protected override IEnumerable<object> GetEqualityComponents()
     {
